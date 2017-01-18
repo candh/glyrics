@@ -6,27 +6,39 @@ const geniusClient = new Genius('Wd5-iUH0HjDKBDY3PUztzeo-PiG-34FQKY9tkjH4XfLpG79
 const colors = require('colors')
 const term = require('terminal-kit').terminal;
 const readline = require('readline');
+const ora = require('ora');
 
 const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
 });
+var spinner = ora({
+    text: "Searching for tracks...",
+    spinner : "pipe",
+    color: "cyan"
+}).start();
 
 let q = process.argv[2];
 if (q == undefined || q == null || q == "") {
-    console.log('\nNo song provided\n'.red.bold);
+    spinner.text = "No track provided";
+    spinner.fail();
     process.exit();
 }
 
 function genius() {
     geniusClient.search(q, function(error, results) {
-    	if(error){
-    		console.log(error)
-    	}
+        if (error) {
+            spinner.text = error;
+            spinner.fail();
+        }
         let hits = JSON.parse(results).response.hits;
         if (hits.length > 0) {
+
+
+            spinner.succeed()
+
             hits.forEach(function(element, index) {
-                console.log(`${index} >>`.green.bold, element.result.full_title)
+                console.log(`\n${index} >>`.green.bold, element.result.full_title)
             });
 
             rl.setPrompt("\nEnter track number >>> ".green)
@@ -39,15 +51,24 @@ function genius() {
                     console.log(`Not a valid track number, Please try again`.red);
                     rl.prompt();
                 } else {
+
                     let answer = line;
-                    console.log(`\nTrack Selected: ${answer}`);
+                    console.log(`\nTrack Selected: ${answer}\n`);
                     let path = hits[answer].result.path;
                     let title = hits[answer].result.full_title;
                     let url = `https://www.genius.com${path}`;
 
+                    spinner.clear();
+                    spinner.text = "Fetching lyrics..."
+                    spinner.start();
+
                     jsdom.env(
                         `https://genius.com${path}`,
                         function(err, window) {
+                            if (err) {
+                                console.log(err);
+                            }
+                            spinner.succeed();
                             let output = `${'_'.repeat(title.length + 1)}\n\n${title}\n${url}\n${'_'.repeat(title.length + 1)}`
                             term.eraseDisplay();
                             term.bell();
@@ -63,10 +84,10 @@ function genius() {
                 console.log('Bye 😘\n');
                 process.exit(0);
             });
-        }
-        else {
-        	console.log("\nNo tracks found with this title\n".red.bold);
-        	process.exit();
+        } else {
+            spinner.text = "No tracks found with this title\n".red.bold
+            spinner.fail();
+            process.exit();
         }
     });
 }
