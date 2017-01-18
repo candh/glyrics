@@ -10,7 +10,7 @@ It was just getting tiring looking up lyrics like... okay maybe not that much ma
 ## Usage
     $ glyrics "track name"
 
-![glyrics](http://i.imgur.com/rww2N7p.gif)
+![glyrics](http://i.imgur.com/2QC6MH5.gif)
 
 ## TODO
 
