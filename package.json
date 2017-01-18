@@ -1,0 +1,25 @@
+{
+    "name": "glyrics",
+    "version": "1.1.0",
+    "description": "Get lyrics from genius.com - in the terminal",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js 'test'",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "genius",
+        "lyrics"
+    ],
+    "bin": {
+        "glyrics": "./index.js"
+    },
+    "author": "@candhforlife",
+    "license": "ISC",
+    "dependencies": {
+        "colors": "^1.1.2",
+        "jsdom": "^9.9.1",
+        "node-genius": "^1.1.0",
+        "terminal-kit": "^0.26.1"
+    }
+}
