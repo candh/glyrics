@@ -1,12 +1,14 @@
 # glyrics
-A terminal thingy to get lyrics of a track from genius.com
+A terminal thingy to get lyrics of a track from genius.com 
 
+## Why tho
+It was just getting tiring looking up lyrics like... okay maybe not that much maybe I was just bored and made this to kill time.
 
 ## Install 
-    [sudo] npm install glyrics --g
+    $ [sudo] npm install glyrics --g
     
 ## Usage
-    glyrics "track name"
+    $ glyrics "track name"
 
 ![glyrics](http://i.imgur.com/rww2N7p.gif)
 
