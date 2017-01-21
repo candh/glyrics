@@ -1,8 +1,12 @@
 {
   "name": "glyrics",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Get lyrics from genius.com - in the terminal",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/candh/glyrics"
+  },
   "scripts": {
     "start": "node index.js 'test'",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -22,7 +26,6 @@
     "inquirer": "^2.0.0",
     "jsdom": "^9.9.1",
     "node-genius": "^1.1.0",
-    "ora": "^1.0.0",
-    "request": "^2.79.0"
+    "ora": "^1.0.0"
   }
 }

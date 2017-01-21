@@ -33,7 +33,6 @@ function genius() {
             spinner.text = error;
             spinner.fail();
         }
-
         // collect the results in the hits array
         let hits = JSON.parse(results).response.hits;
         if (hits.length > 0) {
