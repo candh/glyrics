@@ -8,9 +8,7 @@ const spinner = require('ora')({
 const blessed = require('blessed');
 const jsdom = require('jsdom');
 const process = require('process');
-const Genius = require("node-genius");
-// default token - you can generate your own at docs.genius.com
-const geniusClient = new Genius('Wd5-iUH0HjDKBDY3PUztzeo-PiG-34FQKY9tkjH4XfLpG798We7M2blo3xGfQLAO');
+var request = require("request");
 const colors = require('colors')
 const readline = require('readline');
 const inquirer = require('inquirer');
@@ -22,19 +20,29 @@ if (q == undefined || q == null || q == "") {
     spinner.fail();
     process.exit();
 }
+var options = {
+    method: 'GET',
+    url: 'http://api.genius.com/search',
+    qs: {
+        q: q,
+        access_token: 'UARllo5N6CLQYVlqFwolyauSlYiyU_07YTg7HGHkWRbimN4GWPJehPP5fzu9lXeO'
+    },
+};
+
 
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 function genius() {
 
     // search the track
-    geniusClient.search(q, function(error, results) {
+    request(options, function(error, response, body) {
         if (error) {
-            spinner.text = error;
+            spinner.text = "Something went wrong 😢";
             spinner.fail();
+            return;
         }
         // collect the results in the hits array
-        let hits = JSON.parse(results).response.hits;
+        let hits = JSON.parse(body).response.hits;
         if (hits.length > 0) {
             spinner.succeed();
 
@@ -128,6 +136,7 @@ function genius() {
             process.exit();
         }
     });
+
 }
 
 

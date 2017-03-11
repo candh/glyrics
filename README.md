@@ -25,6 +25,11 @@ You know what to do.. Just do any of the todos or add your own thing. Fork, make
 ## Changelog
 Added changelog in version 1.4.0, No changelog for older versions, Sorry 😕
 
+**1.5.0**
+
++ Not using `node-genius` anymore.
++ Displays a more user friendly error if something goes wrong. (not dev friendly)
+
 **1.4.0**
 
 + Added a scrollable box (easier to read)
