@@ -1,6 +1,8 @@
 # glyrics
 A terminal thingy to get lyrics of a track from genius.com 
 
+[![npm](https://img.shields.io/npm/dw/localeval.svg?style=plastic)](https://www.npmjs.com/package/glyrics)
+
 ## Why tho
 It was just getting tiring looking up lyrics like... okay maybe not that much maybe I was just bored and made this to kill time.
 
