@@ -1,9 +1,9 @@
 # glyrics
 A terminal thingy to get lyrics of a track from genius.com 
 
-[![npm](https://img.shields.io/npm/dm/glyrics.svg)]()
-[![npm](https://img.shields.io/npm/v/npm.svg)]()
-[![Twitter Follow](https://img.shields.io/twitter/follow/espadrine.svg?style=social&label=Follow)]()
+[![npm](https://img.shields.io/npm/dm/glyrics.svg)](https://www.npmjs.com/package/glyrics)
+[![npm](https://img.shields.io/npm/v/glyrics.svg)](https://www.npmjs.com/package/glyrics)
+[![Twitter Follow](https://img.shields.io/twitter/follow/candhforlife.svg?style=social&label=Follow)]()
 
 ## Why tho
 It was just getting tiring looking up lyrics like... okay maybe not that much maybe I was just bored and made this to kill time.
