@@ -5,21 +5,20 @@ A terminal thingy to get lyrics of a track from genius.com
 [![npm](https://img.shields.io/npm/v/glyrics.svg)](https://www.npmjs.com/package/glyrics)
 [![Twitter Follow](https://img.shields.io/twitter/follow/candhforlife.svg?style=social&label=Follow)]()
 
-## Why tho
+## Why
 It was just getting tiring looking up lyrics like... okay maybe not that much maybe I was just bored and made this to kill time.
 
 ## Install 
-    $ [sudo] npm install glyrics --g
+    $ [sudo] npm install glyrics -g
     
 ## Usage
     $ glyrics "track name"
 and then follow onscreen instructions
 
-![glyrics-demo](http://i.imgur.com/vLvr5ft.gif)
+![glyrics-demo](https://i.imgur.com/DNKW8j6.gif)
 
 ## TODO
 
-* [x] scrollable thing fix
 * [ ] Make a GUI with all the genius.com features like viewing annotations and stuff
 
 ## Contribution 
@@ -28,6 +27,11 @@ You know what to do.. Just do any of the todos or add your own thing. Fork, make
 
 ## Changelog
 Added changelog in version 1.4.0, No changelog for older versions, Sorry 😕
+
+**1.6.0**
++ Bracket [] hightlighting for things like [Verse], [Chorus]. Makes it easier to read
++ Refactoring and stuff
++ Added LICENSE
 
 **1.5.0**
 
@@ -41,7 +45,7 @@ Added changelog in version 1.4.0, No changelog for older versions, Sorry 😕
 + Some other minor UI improvements
 
 ## Notes
-Only tested on terminal.app on MacOSX 12.10.2, Just too lazy to test on other platforms.. Can someone tell me if it works on linux too?
+Works on Mac, Linux and even Android (Tested on termux). Install by `yarn global add glyrics` on Android.
 
 ## By
 [@candhforlife](https://twitter.com/candhforlife) 
