@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 const blessed = require('blessed')
 const jsdom = require('jsdom')
 const process = require('process')
@@ -17,7 +18,7 @@ if (!query) {
     spinner.text = 'No track provided'
     console.log('Usage: glyrics \'track name\'')
     spinner.fail()
-    process.exit()
+    process.exit(1)
 }
 
 const options = {
@@ -75,11 +76,12 @@ function genius(options) {
                     url,
                     (err, window) => {
                         if (err) {
+                            spinner.stop()
                             console.log(err)
                         }
 
                         // stop the spinner
-                        spinner.stop()
+                        spinner.succeed()
 
                         // formatting the output header
                         const output = `${'_'.repeat(title.length + 1)}\n\n${title}\n${url}\n${'_'.repeat(title.length + 1)}`

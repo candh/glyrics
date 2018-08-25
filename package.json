@@ -16,7 +16,7 @@
     "lyrics"
   ],
   "bin": {
-    "glyrics": "./index.js"
+    "glyrics": "./genius.js"
   },
   "author": "@candhforlife",
   "license": "ISC",
