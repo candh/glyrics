@@ -1,107 +1,107 @@
-// requires and globals
-const spinner = require('ora')({
-    text: "Searching for tracks...",
-    spinner: "arc",
-    color: "cyan"
-}).start();
-// init the spinner
-const blessed = require('blessed');
-const jsdom = require('jsdom');
-const process = require('process');
-var request = require("request");
+const blessed = require('blessed')
+const jsdom = require('jsdom')
+const process = require('process')
+const request = require('request')
 const colors = require('colors')
-const readline = require('readline');
-const inquirer = require('inquirer');
+const inquirer = require('inquirer')
+
+const spinner = require('ora')({
+    text: 'Searching for tracks...',
+    spinner: 'arc',
+    color: 'cyan'
+})
 
 // get the track name
-let q = process.argv[2];
-if (q == undefined || q == null || q == "") {
-    spinner.text = "No track provided";
-    spinner.fail();
-    process.exit();
+const query = process.argv[2]
+if (!query) {
+    spinner.text = 'No track provided'
+    console.log('Usage: glyrics \'track name\'')
+    spinner.fail()
+    process.exit()
 }
-var options = {
+
+const options = {
     method: 'GET',
     url: 'http://api.genius.com/search',
     qs: {
-        q: q,
+        q: query,
         access_token: 'UARllo5N6CLQYVlqFwolyauSlYiyU_07YTg7HGHkWRbimN4GWPJehPP5fzu9lXeO'
-    },
-};
+    }
+}
 
+// call the function
+genius(options)
 
-// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-function genius() {
+function genius(options) {
+    // start the spinner
+    spinner.start()
 
     // search the track
-    request(options, function(error, response, body) {
+    request(options, (error, response, body) => {
         if (error) {
-            spinner.text = "Something went wrong 😢";
-            spinner.fail();
-            return;
+            spinner.text = 'Something went wrong 😢'
+            spinner.fail()
+            return
         }
         // collect the results in the hits array
-        let hits = JSON.parse(body).response.hits;
-        if (hits.length > 0) {
-            spinner.succeed();
+        const hits = JSON.parse(body).response.hits
 
-            // new array with just the titles (useful for looking up the index of the song in the hits array)
-            // because in answer of the prompt we're not provided with the index of the song in the hits array
+        if (hits.length) {
+            spinner.succeed()
 
-            arr = [];
-            hits.forEach(function(element, index) {
-                // format it a little bit
-                arr.push(`${colors.red.bold('[')}${(element.result.full_title)}${colors.red.bold(']')}`);
-            });
-
+            // formatting all the results
+            const results = hits.map(element => `${colors.red.bold('[')}${element.result.full_title}${colors.red.bold(']')}`)
 
             // ask the user which track they want the lyrics for
             inquirer.prompt([{
                 type: 'list',
                 name: 'track',
                 message: 'Select a track >>>',
-                choices: arr,
-                pageSize: arr.length
-            }]).then(function(answers) {
+                choices: results,
+                pageSize: results.length
+            }]).then((answers) => {
+  
+                const answer = results.indexOf(answers.track)
+                const path = hits[answer].result.path
+                const title = hits[answer].result.full_title
+                const url = `https://www.genius.com${path}`
 
-                answer = arr.indexOf(answers.track);
-                let path = hits[answer].result.path;
-                let title = hits[answer].result.full_title;
-                let url = `https://www.genius.com${path}`;
-
-                spinner.clear();
-                spinner.text = "Fetching lyrics..."
-                spinner.start();
+                spinner.clear()
+                spinner.text = 'Fetching lyrics...'
+                spinner.start()
 
                 // look up lyrics from the website
                 jsdom.env(
-                    `https://genius.com${path}`,
-                    function(err, window) {
+                    url,
+                    (err, window) => {
                         if (err) {
-                            console.log(err);
+                            console.log(err)
                         }
 
-                        spinner.succeed();
+                        // stop the spinner
+                        spinner.stop()
 
-                        // formatting the output string
-                        let output = `${'_'.repeat(title.length + 1)}\n\n${title}\n${url}\n${'_'.repeat(title.length + 1)}`;
+                        // formatting the output header
+                        const output = `${'_'.repeat(title.length + 1)}\n\n${title}\n${url}\n${'_'.repeat(title.length + 1)}`
 
                         // create a new screen
                         const screen = blessed.screen({
                             smartCSR: true
-                        });
+                        })
 
-                        let lyrics = window.document.getElementsByClassName('lyrics')[0].textContent.trim();
+                        let lyrics = window.document.getElementsByClassName('lyrics')[0].textContent.trim().split('\n')
+                        
+                        // highlighting things like [Verse], [Chorus] etc
+                        const pattern = /\[(.*?)\]/g
+                        lyrics = lyrics.map(el => el.match(pattern) ? colors.green.bold(el) : el).join('\n')
 
                         // create a scrollable box
-                        var box = blessed.box({
+                        const box = blessed.box({
                             width: '85%',
                             height: '85%',
                             left: 'center',
                             top: 'center',
                             scrollable: true,
-
                             scrollbar: {
                                 ch: ' ',
                                 inverse: true
@@ -110,35 +110,29 @@ function genius() {
                             keys: true,
                             vi: true,
                             content: `${colors.green.bold(output)}\n\n${lyrics}`
-                        });
+                        })
 
                         // Append our box to the screen.
-                        screen.append(box);
+                        screen.append(box)
 
                         // Focus our element.
-                        box.focus();
+                        box.focus()
 
                         // Render the screen.
-                        screen.render();
+                        screen.render()
 
                         // on screen close
                         screen.key(['escape', 'q', 'C-c'], function(ch, key) {
-                            return process.exit(0);
-                        });
+                            return process.exit(0)
+                        })
                     }
-                );
-            });
-
+                )
+            })
         } else {
             // when no track with the provided title is found
-            spinner.text = "No tracks found with this title\n".red.bold
-            spinner.fail();
-            process.exit();
+            spinner.text = 'No tracks found with this title\n'.red.bold
+            spinner.fail()
+            process.exit()
         }
-    });
-
+    })
 }
-
-
-
-module.exports = genius;
