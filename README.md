@@ -15,7 +15,9 @@ It was just getting tiring looking up lyrics like... okay maybe not that much ma
     $ glyrics "track name"
 and then follow onscreen instructions
 
+<p align="center"> 
 <img src="./glyrics-demo.gif?raw=true">
+</p>
 
 ## TODO
 
