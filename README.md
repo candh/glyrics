@@ -3,7 +3,7 @@ A terminal thingy to get lyrics of a track from genius.com
 
 [![npm](https://img.shields.io/npm/dm/glyrics.svg)](https://www.npmjs.com/package/glyrics)
 [![npm](https://img.shields.io/npm/v/glyrics.svg)](https://www.npmjs.com/package/glyrics)
-[![Twitter Follow](https://img.shields.io/twitter/follow/candhforlife.svg?style=social&label=Follow)]()
+[![Twitter Follow](https://img.shields.io/twitter/follow/candhforlife.svg?style=social&label=Follow)](https://twitter.com/candhforlife)
 
 ## Why
 It was just getting tiring looking up lyrics like... okay maybe not that much maybe I was just bored and made this to kill time.
@@ -26,9 +26,12 @@ and then follow onscreen instructions
 ## Contribution 
 You know what to do.. Just do any of the todos or add your own thing. Fork, make a new branch with your feature, submit a pull request!
 
-
 ## Changelog
 Added changelog in version 1.4.0, No changelog for older versions, Sorry 😕
+
+**1.6.1**
++ Better regex for highlighting
++ replaced genius() with IIFE
 
 **1.6.0**
 + Bracket [] hightlighting for things like [Verse], [Chorus]. Makes it easier to read
@@ -47,7 +50,9 @@ Added changelog in version 1.4.0, No changelog for older versions, Sorry 😕
 + Some other minor UI improvements
 
 ## Notes
-Works on Mac, Linux and even Android (Tested on termux). Install by `yarn global add glyrics` on Android.
++ I encourage that you get your own token at [https://genius.com/api-clients](https://genius.com/api-clients)
++ Both the selection menu and the lyrics box support `j` and `k` keys for movement... Luckily.
++ Works on Mac, Linux and even Android (Tested on termux). Install by `yarn global add glyrics` on Android.
 
 ## By
 [@candhforlife](https://twitter.com/candhforlife) 

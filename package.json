@@ -1,6 +1,6 @@
 {
   "name": "glyrics",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "description": "Get lyrics from genius.com - in the terminal",
   "main": "genius.js",
   "repository": {
@@ -8,8 +8,7 @@
     "url": "https://github.com/candh/glyrics"
   },
   "scripts": {
-    "start": "node genius.js 'test'",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node genius.js 'test'"
   },
   "keywords": [
     "genius",
@@ -19,7 +18,7 @@
     "glyrics": "./genius.js"
   },
   "author": "@candhforlife",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "blessed": "^0.1.81",
     "colors": "^1.1.2",

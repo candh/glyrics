@@ -23,17 +23,14 @@ if (!query) {
 
 const options = {
     method: 'GET',
-    url: 'http://api.genius.com/search',
+    url: 'https://api.genius.com/search',
     qs: {
         q: query,
         access_token: 'UARllo5N6CLQYVlqFwolyauSlYiyU_07YTg7HGHkWRbimN4GWPJehPP5fzu9lXeO'
     }
-}
+};
 
-// call the function
-genius(options)
-
-function genius(options) {
+(function() {
     // start the spinner
     spinner.start()
 
@@ -94,7 +91,7 @@ function genius(options) {
                         let lyrics = window.document.getElementsByClassName('lyrics')[0].textContent.trim().split('\n')
                         
                         // highlighting things like [Verse], [Chorus] etc
-                        const pattern = /\[(.*?)\]/g
+                        const pattern = /^\[(.*?)\]$/g
                         lyrics = lyrics.map(el => el.match(pattern) ? colors.green.bold(el) : el).join('\n')
 
                         // create a scrollable box
@@ -137,4 +134,4 @@ function genius(options) {
             process.exit()
         }
     })
-}
+})();
