@@ -1,6 +1,6 @@
 {
   "name": "glyrics",
-  "version": "1.6.1",
+  "version": "1.6.2",
   "description": "Get lyrics from genius.com - in the terminal",
   "main": "genius.js",
   "repository": {
@@ -21,10 +21,10 @@
   "license": "MIT",
   "dependencies": {
     "blessed": "^0.1.81",
-    "colors": "^1.1.2",
+    "colors": "^1.4.0",
     "inquirer": "^2.0.0",
     "jsdom": "^9.9.1",
     "ora": "^1.0.0",
-    "request": "^2.81.0"
+    "request": "^2.88.0"
   }
 }
