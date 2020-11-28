@@ -1,6 +1,6 @@
 {
   "name": "glyrics",
-  "version": "1.7",
+  "version": "1.7.0",
   "description": "Get lyrics from genius.com - in the terminal",
   "main": "genius.js",
   "repository": {

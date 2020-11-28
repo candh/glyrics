@@ -36,7 +36,7 @@ You know what to do.. Just do any of the todos or add your own thing. Fork, make
 
 Added changelog in version 1.4.0, No changelog for older versions, Sorry 😕
 
-**1.7**
+**1.7.0**
 
 - Updated jsdom (I was using an ancient version)
 - UserAgent change.
