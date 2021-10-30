@@ -20,7 +20,7 @@ It was just getting tiring looking up lyrics like... okay maybe not that much ma
 
 and then follow onscreen instructions
 
-<p align="center"> 
+<p align="center">
 <img src="./glyrics-demo.gif?raw=true">
 </p>
 
@@ -35,6 +35,10 @@ You know what to do.. Just do any of the todos or add your own thing. Fork, make
 ## Changelog
 
 Added changelog in version 1.4.0, No changelog for older versions, Sorry 😕
+
+**1.8.0**
+
+- Fixed scraping logic
 
 **1.7.0**
 

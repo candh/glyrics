@@ -71,7 +71,7 @@ const options = {
           const answer = results.indexOf(answers.track);
           const path = hits[answer].result.path;
           const title = hits[answer].result.full_title;
-          const url = `https://www.genius.com${path}`;
+          const url = `https://genius.com${path}`;
 
           spinner.clear();
           spinner.text = "Fetching lyrics...";
@@ -79,13 +79,11 @@ const options = {
 
           const resources = new jsdom.ResourceLoader({
             userAgent:
-              "Dalvik/2.1.0 (Linux; U; Android 7.1.2; AFTA Build/NS6264) CTV",
+              "Mozilla/5.0 (iPhone; CPU iPhone OS 10_3 like Mac OS X) AppleWebKit/602.1.50 (KHTML, like Gecko) CriOS/56.0.2924.75 Mobile/14E5239e Safari/602.1"
           });
 
           JSDOM.fromURL(url, { resources })
             .then((dom) => {
-              const window = dom.window;
-
               // stop the spinner
               spinner.succeed();
 
@@ -98,12 +96,26 @@ const options = {
                 smartCSR: true,
               });
 
+              const doc = dom.window.document;
+              const scripts = doc.getElementsByTagName("script");
+
+              let preloaded_state;
+              for (const script of scripts) {
+                if (script.innerHTML.trim().startsWith("window.__PRELOADED_STATE__")) {
+                  preloaded_state = script.outerHTML;
+                  break;
+                }
+              }
+
               let lyrics;
               try {
-                lyrics = window.document
-                  .getElementsByClassName("lyrics")[0]
-                  .textContent.trim()
-                  .split("\n");
+                if (!preloaded_state) throw new Error();
+                const dom = new JSDOM(preloaded_state, { runScripts: "dangerously" });
+                const lyrics_html = dom.window.__PRELOADED_STATE__.songPage.lyricsData.body.html
+                if (!lyrics_html) throw new Error();
+                const lyrics_tag = dom.window.document.createElement("div");
+                lyrics_tag.innerHTML = lyrics_html;
+                lyrics = lyrics_tag.textContent.trim().split("\n")
               } catch (e) {
                 spinner.text = `Couldn't get lyrics. Sorry!\nPlease visit ${url} in your browser.`.red.bold;
                 spinner.fail();
@@ -118,7 +130,7 @@ const options = {
 
               // create a scrollable box
               const box = blessed.box({
-                width: "80%",
+                width: "70%",
                 height: "80%",
                 left: "center",
                 top: "center",
